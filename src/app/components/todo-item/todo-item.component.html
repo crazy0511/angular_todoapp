@@ -1,29 +1,33 @@
-<div class="todo-item d-flex justify-content-between align-items-center"
-    (mouseover)="isHovered = true"
-    (mouseout)="isHovered = false"
+<div
+  class="todo-item d-flex justify-content-between align-items-center"
+  (mouseover)="isHovered = true"
+  (mouseout)="isHovered = false"
 >
-    <div class="todo d-flex justify-content-between align-items-center">
-        <input type="checkbox" class="round-button">
-        <label>Todo Item</label>
-    </div>
+  <div class="todo d-flex justify-content-between align-items-center">
+    <input
+      type="checkbox"
+      [id]="todo.id"
+      class="round-button"
+      [checked]="todo.isCompleted"
+      (change)="changeTodoStatus()"
+    />
+    <label [for]="todo.id">{{ todo.content }}</label>
+  </div>
 
-    <div class="d-flex align-items-center">
-        <span 
-            class="icon-wrapper text-center-edit" 
-            [ngClass]="{'active': isHovered}"
-        >
-            <i class="eva eva-edit-outline" (click)="isEditing = true"></i>
-        </span>
+  <div class="d-flex align-items-center">
+    <span
+      class="icon-wrapper text-center-edit"
+      [ngClass]="{ active: isHovered }"
+    >
+      <i class="eva eva-edit-outline" (click)="isEditing = true"></i>
+    </span>
 
-        <span 
-            class="icon-wrapper text-center" 
-            [ngClass]="{'active': isHovered}"
-        >
-            <i class="eva eva-close"></i>
-        </span>
+    <span class="icon-wrapper text-center" [ngClass]="{ active: isHovered }">
+      <i class="eva eva-close"></i>
+    </span>
 
-        <form class="edit-form" *ngIf="isEditing">
-            <input type="text" name="editTodo">
-        </form>
-    </div>
+    <form class="edit-form" *ngIf="isEditing">
+      <input type="text" name="editTodo" />
+    </form>
+  </div>
 </div>

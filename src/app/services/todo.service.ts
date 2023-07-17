@@ -34,15 +34,34 @@ export class TodoService{
     this.updateTodosData();
   }
 
+  addTodo(content: string){
+    const date = new Date(Date.now()).getTime();
+    const newTodo = new Todo(date, content);
+    this.todos.unshift(newTodo);
+    this.updateToLocalStorage();
+  }
+
+  changeTodoStatus(id: number, isCompleted: boolean){
+    const index = this.todos.findIndex(t => t.id === id);
+    const todo = this.todos[index];
+    todo.isCompleted = isCompleted;
+    // Thay đổi index thành todo mới
+    this.todos.splice(index, 1, todo);
+    this.updateToLocalStorage();
+  }
+
   filterTodo(filter: Filter, isFiltering: boolean = true){
     this.currentFilter = filter;
     switch(filter){
+      // Với todo.isCompleted = fasle
       case Filter.Active:
         this.filterTodos = this.todos.filter(todo => !todo.isCompleted);
         break;
+      // Với todo.isCompleted = true
       case Filter.Completed:
         this.filterTodos = this.todos.filter(todo => todo.isCompleted);
         break;
+      // Với tất cả các todo
       case Filter.All:
         this.filterTodos = [...this.todos.map(todo => ({...todo}) )];
         break;
