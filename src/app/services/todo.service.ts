@@ -50,6 +50,20 @@ export class TodoService{
     this.updateToLocalStorage();
   }
 
+  editTodo(id: number, content: string){
+    const index = this.todos.findIndex(t => t.id === id);
+    const todo = this.todos[index];
+    todo.content = content;
+    this.todos.splice(index, 1, todo);
+    this.updateToLocalStorage();
+  }
+
+  deleteTodo(id: number){
+    const index = this.todos.findIndex(t => t.id === id);
+    this.todos.splice(index, 1);
+    this.updateToLocalStorage();
+  }
+
   filterTodo(filter: Filter, isFiltering: boolean = true){
     this.currentFilter = filter;
     switch(filter){
