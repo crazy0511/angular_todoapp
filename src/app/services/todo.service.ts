@@ -24,7 +24,9 @@ export class TodoService{
 
   fetchFromLocalStorage(){
     this.todos = this.storageService.getValue<Todo[]>(TodoService.TodoStorageKey) || [];
-    this.filterTodos = [...this.todos.map(todo => ({...todo}) )];
+    // Không chạy được animation gạch content nếu isCompleted = true
+    // this.filterTodos = [...this.todos.map(todo => ({...todo}) )];
+    this.filterTodos = [...this.todos];
     this.updateTodosData();
   }
 
@@ -64,6 +66,16 @@ export class TodoService{
     this.updateToLocalStorage();
   }
 
+  toggleAll(){
+    this.todos = this.todos.map(todo =>{
+      return {
+        ...todo,
+        isCompleted: !this.todos.every(t => t.isCompleted)
+      }
+    });
+    this.updateToLocalStorage();
+  }
+
   filterTodo(filter: Filter, isFiltering: boolean = true){
     this.currentFilter = filter;
     switch(filter){
@@ -77,7 +89,8 @@ export class TodoService{
         break;
       // Với tất cả các todo
       case Filter.All:
-        this.filterTodos = [...this.todos.map(todo => ({...todo}) )];
+        // this.filterTodos = [...this.todos.map(todo => ({...todo}) )];
+        this.filterTodos = [...this.todos];
         break;
     }
 
