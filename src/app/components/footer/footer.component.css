@@ -38,7 +38,7 @@
 }
 
 .clear-completed-btn{
-    visibility: visible;
+    visibility: hidden;
 }
 
 .clear-completed-btn.visible{

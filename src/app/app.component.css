@@ -1,6 +1,7 @@
 /* OK */
 .title{
-    color: rgba(175, 47, 47, 0.15);
+    /* color: rgba(175, 47, 47, 0.15); */
+    color: #33CCFF;
     font-size: 120px;
     padding: 30px 0;
     font-weight: 100;

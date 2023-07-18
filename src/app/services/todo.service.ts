@@ -99,6 +99,11 @@ export class TodoService{
     }
   }
 
+  clearCompleted(){
+    this.todos = this.todos.filter(todo => !todo.isCompleted);
+    this.updateToLocalStorage();
+  }
+
   private updateTodosData(){
     this.displayTodosSubject.next(this.filterTodos);
     this.lengthSubject.next(this.todos.length);
