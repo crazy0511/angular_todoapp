@@ -8,6 +8,7 @@ import { Observable, map } from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  // check xem có todo không?
   hasTodo$!: Observable<boolean>;
 
   constructor(private todoService: TodoService){
@@ -15,7 +16,9 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.todoService.fetchFromLocalStorage();
-      this.hasTodo$ = this.todoService.length$.pipe(map(length => length > 0));
+    // Lấy data
+    this.todoService.fetchFromLocalStorage();
+    // length > 0 -> hasTodo4 = true
+    this.hasTodo$ = this.todoService.length$.pipe(map(length => length > 0));
   }
 }

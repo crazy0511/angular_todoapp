@@ -7,6 +7,7 @@ import { TodoService } from 'src/app/services/todo.service';
   styleUrls: ['./todo-input.component.css']
 })
 export class TodoInputComponent implements OnInit {
+  // [(ngModel)]="todoContent" nhận giá trị nhập
   todoContent = '';
 
   constructor(private todoService: TodoService){}
@@ -18,6 +19,7 @@ export class TodoInputComponent implements OnInit {
   onSubmit(){
     if(this.todoContent.trim() !== ''){
       this.todoService.addTodo(this.todoContent);
+      // Sau khi add khởi tạo todoContent = ''
       this.todoContent = '';
     }
   }

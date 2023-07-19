@@ -23,6 +23,8 @@ const fadeStrikeThroughAnimation = trigger('fadeStrikeThrough', [
 })
 export class TodoItemComponent implements OnInit {
   @Input() todo!: Todo;
+
+  // Conponent con tạo sự kiện để component cha nhận
   @Output() changeStatus: EventEmitter<Todo> = new EventEmitter<Todo>();
   @Output() editTodo: EventEmitter<Todo> = new EventEmitter<Todo>();
   @Output() deleteTodo: EventEmitter<Todo> = new EventEmitter<Todo>();
@@ -36,11 +38,13 @@ export class TodoItemComponent implements OnInit {
     
   }
 
+  // trả về to
   changeTodoStatus(){
+    // ...this.todo: tạo bản sao giống todo
     this.changeStatus.emit({...this.todo, isCompleted: !this.todo.isCompleted});
   }
 
-  // Nhận event gõ phím
+  // Nhận event ấn phím Enter
   submitEdit(event: KeyboardEvent){
     const {keyCode} = event;
     event.preventDefault();

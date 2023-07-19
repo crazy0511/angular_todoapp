@@ -19,6 +19,7 @@ export class LocalStorageService {
     return this.storage[key] || false;
   }
 
+  // cài đặt lại key - value
   setObject(key:string, value:any): void{
     if(!value){
       return;

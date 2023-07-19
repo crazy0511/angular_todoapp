@@ -17,38 +17,37 @@ export class TodoService{
   private displayTodosSubject: BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>([]);
   private currentFilter: Filter = Filter.All;
 
+  private updateTodosData(){
+    this.displayTodosSubject.next(this.filterTodos);
+    this.lengthSubject.next(this.todos.length);
+  }
+
+  // todo$ = displayTodosSubject
   todo$: Observable<Todo[]> = this.displayTodosSubject.asObservable();
+  // length$ = lengthSubject
   length$: Observable<number> = this.lengthSubject.asObservable();
 
   constructor(private storageService: LocalStorageService) {  }
 
+  // Lấy data
   fetchFromLocalStorage(){
     this.todos = this.storageService.getValue<Todo[]>(TodoService.TodoStorageKey) || [];
-    // Không chạy được animation gạch content nếu isCompleted = true
-    // this.filterTodos = [...this.todos.map(todo => ({...todo}) )];
     this.filterTodos = [...this.todos];
     this.updateTodosData();
   }
 
+  // Update data
   updateToLocalStorage(){
     this.storageService.setObject(TodoService.TodoStorageKey, this.todos);
     this.filterTodo(this.currentFilter, false);
     this.updateTodosData();
   }
 
+  // Add data
   addTodo(content: string){
     const date = new Date(Date.now()).getTime();
     const newTodo = new Todo(date, content);
-    this.todos.unshift(newTodo);
-    this.updateToLocalStorage();
-  }
-
-  changeTodoStatus(id: number, isCompleted: boolean){
-    const index = this.todos.findIndex(t => t.id === id);
-    const todo = this.todos[index];
-    todo.isCompleted = isCompleted;
-    // Thay đổi index thành todo mới
-    this.todos.splice(index, 1, todo);
+    this.todos.push(newTodo);
     this.updateToLocalStorage();
   }
 
@@ -63,6 +62,17 @@ export class TodoService{
   deleteTodo(id: number){
     const index = this.todos.findIndex(t => t.id === id);
     this.todos.splice(index, 1);
+    this.updateToLocalStorage();
+  }
+
+
+  // Thay đổi trang thái 
+  changeTodoStatus(id: number, isCompleted: boolean){
+    const index = this.todos.findIndex(t => t.id === id);
+    const todo = this.todos[index];
+    todo.isCompleted = isCompleted;
+    // Thay đổi index thành todo mới
+    this.todos.splice(index, 1, todo);
     this.updateToLocalStorage();
   }
 
@@ -102,10 +112,5 @@ export class TodoService{
   clearCompleted(){
     this.todos = this.todos.filter(todo => !todo.isCompleted);
     this.updateToLocalStorage();
-  }
-
-  private updateTodosData(){
-    this.displayTodosSubject.next(this.filterTodos);
-    this.lengthSubject.next(this.todos.length);
   }
 }
