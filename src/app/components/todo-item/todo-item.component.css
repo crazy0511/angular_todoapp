@@ -2,6 +2,7 @@
   min-height: 50px;
   padding: 0 5px;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
+  /* Thiết lập vị trí tương đối của phần tử. */
   position: relative;
 }
 
@@ -11,6 +12,7 @@
   font-size: 18px;
   user-select: none;
 }
+
 
 .round-button {
   width: 30px;

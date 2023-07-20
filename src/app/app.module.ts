@@ -12,6 +12,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 
 @NgModule({
   declarations: [
+    // Khai báo các Component
     AppComponent,
     TodoListComponent,
     TodoItemComponent,
@@ -20,11 +21,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
     FooterComponent
   ],
   imports: [
+    // import các Module
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule
   ],
   providers: [],
+  // class AppComponent chạy đầu
   bootstrap: [AppComponent]
 })
 export class AppModule { }
