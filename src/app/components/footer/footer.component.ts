@@ -69,7 +69,7 @@ export class FooterComponent implements OnInit, OnDestroy{
   }
 
 
-  //
+  //Thực hiện hàm clearCompleted() trong ToDoService
   clearCompleted(){
     this.todoService.clearCompleted();
   }
